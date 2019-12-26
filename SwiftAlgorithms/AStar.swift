@@ -85,20 +85,14 @@ public class AStar<Node: AnyObject> where Node: AStarNode & Hashable & Equatable
         let closedList = ClosedList<Node>()
         var g: [Node: Float] = [:]
         
-    //    print("The goal is \(goal)")
-    //    print("Staring at \(start)")
-
         openList.insert(start, key: 0)
         
         g[start] = 0
         
         repeat {
             let currentNode = openList.extractMin()!
-            
-    //        print("Current node: \(currentNode)  g=\(g[currentNode]!)  h=\(h(currentNode))")
-            
+                        
             if currentNode == goal {
-    //            print("Found it")
                 return constructPath(currentNode)
             }
             
