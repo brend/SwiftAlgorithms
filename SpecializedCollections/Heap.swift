@@ -178,7 +178,7 @@ public class Heap<Element, Key> where Key: Comparable & CustomStringConvertible 
         return removedItem.element
     }
     
-    /* indexOf exists only to reduce the number of times
+    /* firstIndex(where:) exists only to reduce the number of times
      * the array has to be queried to find a specific element */
     public func firstIndex(where predicate: (Element, Key) -> Bool) -> Int? {
         elements.firstIndex {
@@ -188,5 +188,21 @@ public class Heap<Element, Key> where Key: Comparable & CustomStringConvertible 
             
             return predicate(keyedElement.element, key)
         }
+    }
+}
+
+extension Heap where Element: Equatable {
+    func lookup(element: Element) -> (Element, Key)? {
+        guard let foundElement = elements.first(where: { $0.element == element })
+            else { return nil }
+        
+        return (element, foundElement.key.unlifted)
+    }
+    
+    func decreaseKey(_ element: Element, newKey: Key) {
+        guard let i = elements.firstIndex(where: { $0.element == element })
+            else { return }
+        
+        decreaseKey(i, element, newKey)
     }
 }
