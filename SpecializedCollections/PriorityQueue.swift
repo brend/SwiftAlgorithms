@@ -9,5 +9,5 @@
 import Foundation
 
 public class PriorityQueue<Element, Key>: Heap<Element, Key>
-    where Key: Comparable & CustomStringConvertible {
+    where Key: Comparable {
 }

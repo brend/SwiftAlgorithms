@@ -29,7 +29,14 @@ class MinimumSpanningTreeTests: XCTestCase {
         g.addEdge(between: fox, and: doe, labelled: 9)
         g.addEdge(between: cow, and: doe, labelled: 3)
         
-        minimumSpanningTree(graph: g)
+        let tree = minimumSpanningTree(graph: g)
+        
+        XCTAssertEqual("cat", tree.root)
+        XCTAssertEqual(["cow", "dog", "fox"], tree.children(of: "cat").sorted())
+        XCTAssertEqual(["doe"], tree.children(of: "dog"))
+        XCTAssertEqual([], tree.children(of: "fox"))
+        XCTAssertEqual([], tree.children(of: "cow"))
+        XCTAssertEqual([], tree.children(of: "doe"))
     }
     
     func testWikipedia() {
@@ -54,6 +61,15 @@ class MinimumSpanningTreeTests: XCTestCase {
         graph.addEdge(between: e, and: g, labelled: 9)
         graph.addEdge(between: f, and: g, labelled: 11)
         
-        minimumSpanningTree(graph: graph)
+        let tree = minimumSpanningTree(graph: graph)
+        
+        XCTAssertEqual("D", tree.root)
+        XCTAssertEqual(["A", "F"], tree.children(of: "D").sorted())
+        XCTAssertEqual(["B"], tree.children(of: "A").sorted())
+        XCTAssertEqual(["E"], tree.children(of: "B").sorted())
+        XCTAssertEqual(["C", "G"], tree.children(of: "E").sorted())
+        XCTAssertEqual([], tree.children(of: "F"))
+        XCTAssertEqual([], tree.children(of: "G"))
+        XCTAssertEqual([], tree.children(of: "C"))
     }
 }

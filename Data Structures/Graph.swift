@@ -17,6 +17,7 @@ public protocol UndirectedGraph {
     
     func adjacent(_ n: Node, _ m: Node) -> Bool
     func neighbors(of n: Node) -> [Node]
+    func label(of n: Node) -> NodeLabel
     func label(from n: Node, to m: Node) -> EdgeLabel?
     
     mutating func addNode(labelled label: NodeLabel) -> Node
@@ -106,6 +107,10 @@ public struct AdjacencyListGraph<NodeLabel, EdgeLabel>: UndirectedGraph where No
     public func neighbors(of n: Node) -> [Node] {
         n.neighbors
     }
+
+    public func label(of node: Node) -> NodeLabel {
+        node.label
+    }
     
     public func label(from n: Node, to m: Node) -> EdgeLabel? {
         assert(n.adjacent(to: m))
@@ -151,5 +156,25 @@ public struct AdjacencyListGraph<NodeLabel, EdgeLabel>: UndirectedGraph where No
         for n in nodes {
             n.removeAllConnections()
         }
+    }
+}
+
+extension UndirectedGraph where Node: Hashable {
+    func traverseBreadthFirst(startNode: Node? = nil, apply action: (Node, Node) -> Void) {
+        guard let startNode = startNode ?? nodes.first else { return }
+        
+        var visited: [Node: Node] = [:]
+        var fringe = [startNode]
+        
+        repeat {
+            let n = fringe.removeFirst()
+            
+            visited[n] = n
+            
+            for m in neighbors(of: n).filter({visited[$0] == nil}) {
+                action(n, m)
+                fringe.append(m)
+            }
+        } while !fringe.isEmpty
     }
 }

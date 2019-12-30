@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AF03E23B23BA188F000A7B08 /* Tree.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF03E23A23BA188F000A7B08 /* Tree.swift */; };
+		AF03E23D23BA2EA7000A7B08 /* Auxiliary.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF03E23C23BA2EA7000A7B08 /* Auxiliary.swift */; };
+		AF03E23F23BA2EE1000A7B08 /* DatastructuresTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF03E23E23BA2EE1000A7B08 /* DatastructuresTests.swift */; };
 		AF3245EE23B8ACBA00D5DD81 /* Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3245ED23B8ACBA00D5DD81 /* Graph.swift */; };
 		AF3245F623B8B25F00D5DD81 /* AdjacencyListGraphTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3245F523B8B25F00D5DD81 /* AdjacencyListGraphTests.swift */; };
 		AF3245F823B8B25F00D5DD81 /* libSwiftAlgorithms.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AFD7CFC323B4E7FE0091632D /* libSwiftAlgorithms.a */; };
@@ -28,6 +31,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AF03E23A23BA188F000A7B08 /* Tree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tree.swift; sourceTree = "<group>"; };
+		AF03E23C23BA2EA7000A7B08 /* Auxiliary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auxiliary.swift; sourceTree = "<group>"; };
+		AF03E23E23BA2EE1000A7B08 /* DatastructuresTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatastructuresTests.swift; sourceTree = "<group>"; };
 		AF3245ED23B8ACBA00D5DD81 /* Graph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Graph.swift; sourceTree = "<group>"; };
 		AF3245F323B8B25F00D5DD81 /* AlgorithmsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AlgorithmsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF3245F523B8B25F00D5DD81 /* AdjacencyListGraphTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdjacencyListGraphTests.swift; sourceTree = "<group>"; };
@@ -64,6 +70,8 @@
 			isa = PBXGroup;
 			children = (
 				AF3245ED23B8ACBA00D5DD81 /* Graph.swift */,
+				AF03E23A23BA188F000A7B08 /* Tree.swift */,
+				AF03E23C23BA2EA7000A7B08 /* Auxiliary.swift */,
 			);
 			path = "Data Structures";
 			sourceTree = "<group>";
@@ -73,6 +81,7 @@
 			children = (
 				AF3245F523B8B25F00D5DD81 /* AdjacencyListGraphTests.swift */,
 				AF32460023B8C57900D5DD81 /* MinimumSpanningTreeTests.swift */,
+				AF03E23E23BA2EE1000A7B08 /* DatastructuresTests.swift */,
 				AF3245F723B8B25F00D5DD81 /* Info.plist */,
 			);
 			path = AlgorithmsTests;
@@ -220,6 +229,7 @@
 			files = (
 				AF32460123B8C57900D5DD81 /* MinimumSpanningTreeTests.swift in Sources */,
 				AF3245F623B8B25F00D5DD81 /* AdjacencyListGraphTests.swift in Sources */,
+				AF03E23F23BA2EE1000A7B08 /* DatastructuresTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -228,8 +238,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				AF3245FF23B8BD5E00D5DD81 /* MinimumSpanningTree.swift in Sources */,
+				AF03E23D23BA2EA7000A7B08 /* Auxiliary.swift in Sources */,
 				AF3245EE23B8ACBA00D5DD81 /* Graph.swift in Sources */,
 				AFD7CFD623B4E8C40091632D /* AStar.swift in Sources */,
+				AF03E23B23BA188F000A7B08 /* Tree.swift in Sources */,
 				AFD7CFD323B4E8A10091632D /* PriorityQueue.swift in Sources */,
 				AFD7CFD423B4E8A10091632D /* Heap.swift in Sources */,
 			);

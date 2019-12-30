@@ -8,22 +8,34 @@
 
 import Foundation
 
-public func minimumSpanningTree<G:UndirectedGraph>(graph: G)
+public func minimumSpanningTree<G:UndirectedGraph>(graph: G) -> SimpleTree<G.NodeLabel, G.EdgeLabel>
     where G.Node: Hashable,
-        G.EdgeLabel: Comparable,
-        G.EdgeLabel == Int {
-    func createNodeQueue(startNode: G.Node) -> PriorityQueue<G.Node, Int> {
-        let q = PriorityQueue<G.Node, Int>()
+          G.EdgeLabel: Comparable {
+            
+    func createNodeQueue(startNode: G.Node) -> PriorityQueue<G.Node, InfinityLift<G.EdgeLabel>> {
+        let q = PriorityQueue<G.Node, InfinityLift<G.EdgeLabel>>()
         
-        q.insert(startNode, key: 0)
+        q.insert(startNode, key: .negativeInfinity)
         
         for n in graph.nodes {
             if n != startNode {
-                q.insert(n, key: Int.max)
+                q.insert(n, key: .positiveInfinity)
             }
         }
         
         return q
+    }
+            
+    func constructTree(startNode: G.Node, parent: [G.Node: G.Node]) -> SimpleTree<G.NodeLabel, G.EdgeLabel> {
+        var tree = SimpleTree<G.NodeLabel, G.EdgeLabel>()
+        
+        for (child, par) in parent {
+            tree.addChild(n: graph.label(of: child), to: graph.label(of: par))
+        }
+        
+        tree.root = graph.label(of: startNode)
+        
+        return tree
     }
     
     guard let startNode = graph.nodes.first else { fatalError() }
@@ -35,7 +47,7 @@ public func minimumSpanningTree<G:UndirectedGraph>(graph: G)
         let u = q.extractMin()!
         
         for v in graph.neighbors(of: u) {
-            let w = graph.label(from: u, to: v)!
+            let w = InfinityLift<G.EdgeLabel>.some(graph.label(from: u, to: v)!)
             
             if let (_, key) = q.lookup(element: v),
                 w < key {
@@ -44,4 +56,8 @@ public func minimumSpanningTree<G:UndirectedGraph>(graph: G)
             }
         }
     }
+            
+    let tree = constructTree(startNode: startNode, parent: parent)
+    
+    return tree
 }

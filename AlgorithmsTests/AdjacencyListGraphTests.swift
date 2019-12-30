@@ -78,26 +78,6 @@ class AdjacencyListGraphTests: XCTestCase {
         XCTAssertFalse(graph.adjacent(catNode, dogNode))
         XCTAssertTrue(graph.adjacent(foxNode, dogNode))
     }
-    
-    func testImmutability() {
-        let catNode = graph.addNode(labelled: "cat")
-        let dogNode = graph.addNode(labelled: "dog")
-        let foxNode = graph.addNode(labelled: "fox")
-        
-        graph.addEdge(between: catNode, and: dogNode, labelled: 3)
-        
-        let copy = graph!
-        
-        graph.addEdge(between: dogNode, and: foxNode, labelled: 2)
-        
-        XCTAssertTrue(graph.adjacent(catNode, dogNode))
-        XCTAssertTrue(graph.adjacent(foxNode, dogNode))
-        XCTAssertFalse(graph.adjacent(catNode, foxNode))
-        
-        XCTAssertTrue(copy.adjacent(catNode, dogNode))
-        XCTAssertFalse(copy.adjacent(foxNode, dogNode))
-        XCTAssertFalse(copy.adjacent(catNode, foxNode))
-    }
 
     func testPerformanceExample() {
         // This is an example of a performance test case.

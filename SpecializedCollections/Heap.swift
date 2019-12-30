@@ -11,42 +11,11 @@ import Foundation
 /* Implementation of a binary heap data structure.
  * Closely follows the outline given in https://de.wikipedia.org/wiki/Binärer_Heap
  */
-public class Heap<Element, Key> where Key: Comparable & CustomStringConvertible {
+public class Heap<Element, Key> where Key: Comparable {
     public init() {
     }
     
-    private enum LiftedKey: Comparable, CustomStringConvertible {
-        case infinity, some(Key)
-        
-        static func < (lhs: Heap<Element, Key>.LiftedKey, rhs: Heap<Element, Key>.LiftedKey) -> Bool {
-            switch (lhs, rhs) {
-            case (.some(let leftKey), .some(let rightKey)):
-                return leftKey < rightKey
-            case (.infinity, _):
-                return false
-            case (_, .infinity):
-                return true
-            }
-        }
-        
-        var unlifted: Key {
-            switch self {
-            case .some(let key):
-                return key
-            default:
-                fatalError("cannot unlift lifted key \(self)")
-            }
-        }
-        
-        var description: String {
-            switch self {
-            case .some(let key):
-                return "\(key)"
-            case .infinity:
-                return "inf"
-            }
-        }
-    }
+    typealias LiftedKey = InfinityLift<Key>
 
     private struct KeyedElement {
         let key: LiftedKey
@@ -140,7 +109,7 @@ public class Heap<Element, Key> where Key: Comparable & CustomStringConvertible 
     public func insert(_ newElement: Element, key newKey: Key) {
         assert(isheap(0))
         
-        elements.append(KeyedElement(key: .infinity, element: newElement))
+        elements.append(KeyedElement(key: .positiveInfinity, element: newElement))
         
         decreaseKey(elements.count - 1, newElement, newKey)
     }
