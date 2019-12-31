@@ -178,3 +178,9 @@ extension UndirectedGraph where Node: Hashable {
         } while !fringe.isEmpty
     }
 }
+
+extension UndirectedGraph where NodeLabel: Equatable {
+    public func node(labelled label: NodeLabel) -> Node? {
+        nodes.first {self.label(of: $0) == label}
+    }
+}
