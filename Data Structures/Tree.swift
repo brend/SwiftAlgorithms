@@ -22,9 +22,9 @@ public protocol Tree {
 }
 
 extension Tree where Node: Hashable & CustomStringConvertible {
-    var isEmpty: Bool { root == nil }
+    public var isEmpty: Bool { root == nil }
     
-    func levels() -> [[(node: Node, parent: Node?)]] {
+    public func levels() -> [[(node: Node, parent: Node?)]] {
         guard !isEmpty else { return [] }
         
         var currentLevel = [(root!, nil as Node?)]
@@ -45,13 +45,8 @@ extension Tree where Node: Hashable & CustomStringConvertible {
         return levels
     }
     
-    func textualRepresentation() -> String {
-        guard !isEmpty else { return "" }
-        
-        let textmap = Dictionary<Node, String>(uniqueKeysWithValues: nodes.map {($0, $0.description)})
-        let longestLabelLength = textmap.values.map {$0.lengthOfBytes(using: .utf8)}.max()!
-        
-        fatalError()
+    public func adjacent(_ node1: Node, _ node2: Node) -> Bool {
+        parent(of: node1) == node2 || parent(of: node2) == node1
     }
 }
 
