@@ -51,6 +51,7 @@ public class AStar<Node: AnyObject> where Node: AStarNode & Hashable & Equatable
     func expandNode(
         _ currentNode: Node,
         _ closedList: ClosedList<Node>,
+        _ openListDictionary: inout [Node: Node],
         _ openList: OpenList,
         _ g: inout [Node:Float]) {
         for successor in currentNode.successors() {
@@ -59,8 +60,11 @@ public class AStar<Node: AnyObject> where Node: AStarNode & Hashable & Equatable
             }
             
             let tentativeG = g[currentNode]! + currentNode.cost(to: successor)
-            let successorIndexInOpenList = openList.firstIndex { (elem, _) in elem == successor}
-            let successorIsInOpenList = successorIndexInOpenList != nil //openList.contains(successor)
+            // let successorIndexInOpenList = openList.firstIndex { (elem, _) in elem == successor}
+            // let successorIndexInOpenList = openList.firstIndex(of: successor)
+            
+            //let successorIsInOpenList = successorIndexInOpenList != nil //openList.contains(successor)
+            let successorIsInOpenList = openListDictionary[successor] != nil
             
             if successorIsInOpenList && g[successor]! <= tentativeG {
                 continue
@@ -72,10 +76,12 @@ public class AStar<Node: AnyObject> where Node: AStarNode & Hashable & Equatable
             
             let f = tentativeG + successor.h()
             
-            if let successorIndex = successorIndexInOpenList {
+            if successorIsInOpenList,
+                let successorIndex = openList.firstIndex(of: successor) {
                 openList.decreaseKey(successorIndex, successor, f)
             } else {
                 openList.insert(successor, key: f)
+                openListDictionary[successor] = successor
             }
         }
     }
@@ -84,6 +90,8 @@ public class AStar<Node: AnyObject> where Node: AStarNode & Hashable & Equatable
         let openList = OpenList()
         let closedList = ClosedList<Node>()
         var g: [Node: Float] = [:]
+        
+        var openListDictionary: [Node: Node] = [:]
         
         openList.insert(start, key: 0)
         
@@ -96,9 +104,10 @@ public class AStar<Node: AnyObject> where Node: AStarNode & Hashable & Equatable
                 return constructPath(currentNode)
             }
             
+            openListDictionary.removeValue(forKey: currentNode)
             closedList.add(currentNode)
             
-            expandNode(currentNode, closedList, openList, &g)
+            expandNode(currentNode, closedList, &openListDictionary, openList, &g)
         } while !openList.isEmpty
         
         return []
