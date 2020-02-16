@@ -67,7 +67,7 @@ public class Heap<Element, Key> where Key: Comparable {
             let left = self.left(i)
             let right = self.right(i)
 
-            assert(isheap(left) && isheap(right))
+            //assert(isheap(left) && isheap(right))
             
             var min = i
 
@@ -93,7 +93,7 @@ public class Heap<Element, Key> where Key: Comparable {
         _ newElement: Element,
         _ newKey: Key) {
         
-        assert(isheap(0))
+        //assert(isheap(0))
         assert(key(i) >= .some(newKey))
             
         elements[i] = KeyedElement(key: .some(newKey), element: newElement)
@@ -107,7 +107,7 @@ public class Heap<Element, Key> where Key: Comparable {
     }
     
     public func insert(_ newElement: Element, key newKey: Key) {
-        assert(isheap(0))
+        //assert(isheap(0))
         
         elements.append(KeyedElement(key: .positiveInfinity, element: newElement))
         
@@ -119,7 +119,7 @@ public class Heap<Element, Key> where Key: Comparable {
     }
     
     public func extractMin() -> Element? {
-        assert(isheap(0))
+        //assert(isheap(0))
         
         guard count > 0 else { return nil }
         
@@ -127,7 +127,7 @@ public class Heap<Element, Key> where Key: Comparable {
     }
     
     private func remove(_ i: Int) -> Element? {
-        assert(isheap(0))
+        //assert(isheap(0))
         assert(i < count)
         
         let removedItem = elements[i]
@@ -173,5 +173,9 @@ extension Heap where Element: Equatable {
             else { return }
         
         decreaseKey(i, element, newKey)
+    }
+    
+    func firstIndex(of element: Element) -> Int? {
+        elements.firstIndex { $0.element == element }
     }
 }
